@@ -1,0 +1,193 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Mar 27, 2022 at 09:43 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `recruitment`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activities`
+--
+
+CREATE TABLE `activities` (
+  `activityID` int(11) NOT NULL,
+  `activityDate` date DEFAULT NULL,
+  `activityDesc` varchar(200) DEFAULT NULL,
+  `activityName` varchar(50) NOT NULL,
+  `comment` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `activities`
+--
+
+INSERT INTO `activities` (`activityID`, `activityDate`, `activityDesc`, `activityName`, `comment`) VALUES
+(1, '2022-02-01', 'Meet with graduate students around the school', 'USA Day.', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `interactions`
+--
+
+CREATE TABLE `interactions` (
+  `commID` int(11) NOT NULL,
+  `studentID` int(11) NOT NULL,
+  `usersID` int(11) DEFAULT NULL,
+  `activityID` int(11) NOT NULL,
+  `comments` varchar(1000) NOT NULL,
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `interactions`
+--
+
+INSERT INTO `interactions` (`commID`, `studentID`, `usersID`, `activityID`, `comments`, `date`) VALUES
+(1, 1, 1, 1, '', NULL),
+(2, 1, 2, 1, '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
+--
+
+CREATE TABLE `students` (
+  `studentID` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `jagNum` varchar(9) DEFAULT NULL,
+  `birthdate` date NOT NULL,
+  `phoneNum` varchar(15) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
+  `city` varchar(40) NOT NULL,
+  `domestic` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `term` varchar(20) NOT NULL,
+  `followupDate` date DEFAULT NULL,
+  `status` varchar(20) NOT NULL,
+  `major` varchar(40) NOT NULL,
+  `school` varchar(40) NOT NULL,
+  `state` varchar(48) NOT NULL,
+  `houseNumber` int(11) NOT NULL,
+  `streetName` varchar(40) NOT NULL,
+  `streetType` varchar(8) NOT NULL,
+  `zip` int(10) NOT NULL,
+  `GPA` decimal(3,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`studentID`, `firstName`, `lastName`, `jagNum`, `birthdate`, `phoneNum`, `email`, `city`, `domestic`, `active`, `term`, `followupDate`, `status`, `major`, `school`, `state`, `houseNumber`, `streetName`, `streetType`, `zip`, `GPA`) VALUES
+(1, 'Test1', 'Student1', 'J00123456', '2022-02-01', '5551110000', 'test@student.com', 'Test Student Dr.', 1, 1, 'Fall 2022', '0000-00-00', '', '', '', '', 0, '', '', 0, '0.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `userID` int(4) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `privledgedRights` tinyint(1) NOT NULL DEFAULT 0,
+  `jnum` varchar(9) NOT NULL,
+  `firstName` varchar(20) NOT NULL,
+  `lastName` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userID`, `username`, `password`, `email`, `privledgedRights`, `jnum`, `firstName`, `lastName`) VALUES
+(1, 'admin', 'pa55word', 'Fakeadmin@jagmail.southalabama.edu123', 1, '', '', ''),
+(2, 'user', 'pa55word', 'xxuser3100xx@gmail.yahoo.org.com', 0, '', '', '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `activities`
+--
+ALTER TABLE `activities`
+  ADD PRIMARY KEY (`activityID`);
+
+--
+-- Indexes for table `interactions`
+--
+ALTER TABLE `interactions`
+  ADD PRIMARY KEY (`commID`),
+  ADD KEY `studentID` (`studentID`),
+  ADD KEY `UsersID` (`usersID`),
+  ADD KEY `ActivityID` (`activityID`),
+  ADD KEY `date` (`date`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`studentID`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`userID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `activities`
+--
+ALTER TABLE `activities`
+  MODIFY `activityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `interactions`
+--
+ALTER TABLE `interactions`
+  MODIFY `commID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `studentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `userID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
